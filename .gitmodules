@@ -1,0 +1,6 @@
+[submodule "Travelers_backend"]
+	path = Travelers_backend
+	url = https://github.com/Sapphire327/Travelers_backend
+[submodule "Travelers_frontend"]
+	path = Travelers_frontend
+	url = https://github.com/Sapphire327/Travelers_frontend

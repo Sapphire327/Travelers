@@ -1,0 +1,51 @@
+networks:
+  dev:
+services:
+  backend:
+    build:
+      context: ./Travelers_backend
+    tty: true
+    volumes:
+      - C:\TravelersImages:/app/uploads
+    depends_on:
+      - postgres
+    ports:
+      - 4200:4200
+    networks:
+      dev:
+  frontend:
+    build:
+      context: ./Travelers_frontend
+    depends_on:
+      - backend
+    ports:
+      - 3000:3000
+    networks:
+      dev:
+  postgres:
+    image: postgres:latest
+    restart: always
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: Gwanda
+      PGDATA: /var/lib/postgresql/data/pgdata
+    volumes:
+      - C:\postgresDocker:/var/lib/postgresql/data
+    networks:
+      dev:
+  nginx:
+    image: nginx:stable-alpine
+    ports:
+      - "80:80"
+    volumes:
+      - './nginx.conf:/etc/nginx/nginx.conf'
+    depends_on:
+      - frontend
+      - backend
+    networks:
+      dev:
+volumes:
+  postgres:
+  backend:
