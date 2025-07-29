@@ -6,7 +6,15 @@ jobs:
   buildAndDeploy:
     runs-on: ubuntu-latest
     steps:
-      - name: Check out repository code
-        uses: actions/checkout@v4
+      - name: SSH into server and deploy
+        uses: appleboy/ssh-action@master
+        env:
+          HOST: ${{ secrets.SERVER_HOST }}
+          USERNAME: ${{ secrets.SERVER_USER }}
+          KEY: ${{ secrets.SERVER_SSH_KEY }}
         with:
-          submodules: recursive
+          script: |
+            cd /home/user/project
+            git pull --recurse-submodule
+            docker compose down
+            docker compose up -d --build
