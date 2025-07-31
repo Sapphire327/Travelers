@@ -6,8 +6,6 @@ jobs:
   buildAndDeploy:
     runs-on: ubuntu-latest
     steps:
-      - name: Test
-        run: echo ${{secrets.SERVER_HOST}}
       - name: SSH into server and deploy
         uses: appleboy/ssh-action@master
         with:
@@ -17,5 +15,5 @@ jobs:
           script: |
             cd /home/user/Travelers
             git pull --recurse-submodule
-#            docker compose down
-#            docker compose up -d --build
+            docker compose down
+            docker compose up -d --build
