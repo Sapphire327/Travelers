@@ -28,12 +28,14 @@ services:
       dev:
   postgres:
     image: postgres:latest
+    env_file:
+      - ./.env
     restart: always
     ports:
       - 5432:5432
     environment:
       POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: Gwanda
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
       PGDATA: /var/lib/postgresql/data/pgdata
     volumes:
 #      - C:\postgresDocker:/var/lib/postgresql/data
