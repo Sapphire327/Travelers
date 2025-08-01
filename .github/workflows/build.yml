@@ -14,6 +14,7 @@ jobs:
           password: ${{ secrets.SERVER_SSH_KEY }}
           script: |
             cd /home/user/Travelers
+            git stash
             git pull --recurse-submodule
             docker compose down
             docker compose up -d --build
